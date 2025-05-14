@@ -43,7 +43,7 @@ function LandingPage() {
         <div className="flex flex-col w-full lg:w-1/2">
           <h1 className="text-4xl lg:text-7xl font-bold bg-gradient-to-r from-[#0C7489] to-[#75DDDD] text-transparent bg-clip-text">
             Securing Health, <br />
-            One block at a Time
+            One blocks at a Time
           </h1>
 
           <p className="text-sm my-6 lg:my-10">
