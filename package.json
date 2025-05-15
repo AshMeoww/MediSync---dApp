@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@coinbase/onchainkit": "^0.38.13",
     "google-font-installer": "^1.1.0",
     "medysync-webapp": "file:",
     "next": "15.3.2",
