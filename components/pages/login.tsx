@@ -72,7 +72,7 @@ function LoginPage() {
         </p>
         
       </div>
-    </div>
+     ;    </div>
   );
 }
 
