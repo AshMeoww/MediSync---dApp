@@ -85,7 +85,7 @@ const links: LinkItem[] = [
               <li
                 key={link.id}
                 className={`hover:bg-[#75DDDD] hover:text-white rounded px-5 ${
-                  currentSection === link.id ? "bg-[#e42605]" : ""
+                  currentSection === link.id ? "bg-[#b1d0d7]" : ""
                 }`}
               >
                 {link.id === "logout" ? (
