@@ -19,7 +19,7 @@ import {
         // omitted for brevity
  
 <Wallet>
-  <ConnectWallet className='bg-blue-800' disconnectedLabel='Log In'>
+  <ConnectWallet className='bg-blue-800' disconnectedLabel='Connect Wallet'>
     <Avatar className="h-6 w-6" />
     <Name className='text-white' />
   </ConnectWallet>

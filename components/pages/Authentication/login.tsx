@@ -31,6 +31,7 @@ export default function Home() {
       <section className="bg-[#f9f7f8] min-h-screen flex items-center justify-center p-6">
         <div className="relative max-w-3xl w-full bg-white rounded-xl shadow-[0_0_20px_rgba(0,0,0,0.05)] p-10">
           <div className="absolute top-20 left-0 flex flex-col space-y-6">
+            {/* pa add na lang ng icons */}
             <button
               aria-label="Patient tab"
               onClick={() => handleUserTabClick('patient')}
@@ -46,6 +47,7 @@ export default function Home() {
                 }`}
               ></i>
             </button>
+            {/* add icon */}
             <button
               aria-label="Doctor tab"
               onClick={() => handleUserTabClick('doctor')}
@@ -166,6 +168,7 @@ export default function Home() {
                   Forgot password?
                 </p>
 
+                {/* should direct to dashboard, patient or doctor, fix */}
                 <p className="text-left text-xl text-gray-600 mb-2">For demonstration purposes:</p>
                 <button className="block mx-auto font-extrabold text-gray-700 bg-gray-300 rounded-md px-16 py-1 shadow-inner" type="button">
                   Skip Verification &amp; Connect Your Wallet Directly
@@ -174,7 +177,7 @@ export default function Home() {
               </form>
             ) : (
               <div className="text-center text-[#0b7a8a] font-semibold">
-                {/* Placeholder for Signup form */}
+                {/* ok na to*/}
                 Signup form coming soon!
               </div>
             )}
