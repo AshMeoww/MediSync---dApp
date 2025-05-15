@@ -1,4 +1,6 @@
 import React from 'react'
+import { PatientPR } from '../Sections/PatientPR';
+import { PatientAA } from '../Sections/PatientAA';
 
 interface PendingModalParam {
     isPendingVisible: boolean;
@@ -19,7 +21,7 @@ export function PendingModal({isPendingVisible, PendingModalbtn }: PendingModalP
       if (!isPendingVisible) return null;
   return (
     <div className='h-full p-10'>
-      Pending Modal
+      <PatientPR />
     </div>
   )
 }
@@ -27,8 +29,8 @@ export function PendingModal({isPendingVisible, PendingModalbtn }: PendingModalP
 export function ApprovedModal({isVisible, ApprovedModalbtn }: ApprovedModalParam) {
       if (!isVisible) return null;
   return (
-    <div className='border-2 h-full p-10'>
-      Approved Access
+    <div className='h-full p-10'>
+      <PatientAA />
     </div>
   )
 }
