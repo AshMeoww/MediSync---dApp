@@ -3,6 +3,7 @@ import SideNav from "@/components/ui/Navigation Bar/sidenav";
 import AccessControl from "./Access Control/page";
 import Dashboard from "./Dashboard/page";
 import MedicalRecords from "./Medical Records/page";
+import Appointment from "./Appointment/page";
 
 function PatientDashboard() {
   return (
@@ -16,12 +17,16 @@ function PatientDashboard() {
           <Dashboard />
         </section>
 
+        <section id="medicalrecord" className="flex-grow h-screen">
+          <MedicalRecords />
+        </section>
+
         <section id="accesscontrol" className="flex-grow h-screen ">
           <AccessControl />
         </section>
 
-        <section id="medicalrecord" className="flex-grow h-screen">
-          <MedicalRecords />
+        <section id="appointments" className="flex-grow h-screen">
+          <Appointment />
         </section>
 
       </section>
