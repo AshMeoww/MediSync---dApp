@@ -8,6 +8,7 @@ import {
   ApprovedModal,
   DeniedModal,
 } from "@/components/ui/Modal/page_modal";
+import { WalletComponent } from "../../Authentication/Wallet/connect";
 
 function AccessControl() {
   const [activeTab, setActiveTab] = useState<'pending' | 'approved' | 'denied'>('pending');
@@ -20,7 +21,7 @@ function AccessControl() {
     <div className="ml- h-full flex flex-col p-10">
       <div className="text-3xl flex flex-row w-full justify-end space-x-4">
         <FaBell />
-        <CiUser />
+        <WalletComponent />
       </div>
 
       <div className="mt-14 flex flex-row justify-between">
