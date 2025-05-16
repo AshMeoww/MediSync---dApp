@@ -1,9 +1,10 @@
 import React from 'react'
 import Image
  from 'next/image'
+import { WalletComponent } from '@/components/pages/Authentication/Wallet/connect'
 function NavigationBar() {
   return (
-      <div className="fixed top-0 left-0 w-full nav flex justify-between py-4 bg-opacity-70 backdrop-blur-md border-gray-200 px-4 md:px-20 lg:px-40">
+      <div className="z-10 fixed top-0 left-0 w-full nav flex justify-between py-4 bg-opacity-70 backdrop-blur-md border-gray-200 px-4 md:px-20 lg:px-40">
         {/* Logo */}
         <div className="logo">
           <Image
@@ -27,12 +28,15 @@ function NavigationBar() {
           <button className="hover:text-blue-500 transition duration-300">
             About Us
           </button>
-          <button
+          {/* <button
             className="rounded-full bg-[#13505b] text-[#FCFFFD] text-sm px-7 h-9 hover:bg-[#0f3d46] transition duration-300 font-medium"
             type="button"
           >
             Login
-          </button>
+          </button> */}
+
+          {/* eth wallet */}
+          <WalletComponent />
         </div>
       </div>
   )

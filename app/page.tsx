@@ -8,7 +8,7 @@ export default function Home() {
 return(
   <main className="w-full">
       {/* <LandingPage /> */}
-      {/* <LoginPage />  */}
+      <LoginPage /> 
 
       <PatientDashboard />
   </main>
