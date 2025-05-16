@@ -7,7 +7,7 @@ import Image from "next/image";
 export default function Home() {
 return(
   <main className="w-full">
-      <LandingPage />
+      {/* <LandingPage /> */}
       <LoginPage /> 
 
       <PatientDashboard />

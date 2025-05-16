@@ -4,7 +4,7 @@ import Image
 import { WalletComponent } from '@/components/pages/Authentication/Wallet/connect'
 function NavigationBar() {
   return (
-      <div className="fixed top-0 left-0 w-full nav flex justify-between py-4 bg-opacity-70 backdrop-blur-md border-gray-200 px-4 md:px-20 lg:px-40">
+      <div className="z-10 fixed top-0 left-0 w-full nav flex justify-between py-4 bg-opacity-70 backdrop-blur-md border-gray-200 px-4 md:px-20 lg:px-40">
         {/* Logo */}
         <div className="logo">
           <Image
