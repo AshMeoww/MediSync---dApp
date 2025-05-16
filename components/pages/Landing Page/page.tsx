@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import Image from "next/image";
 import { GoArrowRight } from "react-icons/go";
 import NavigationBar from "@/components/ui/Navigation Bar/navbar";
+import { AuthContext } from "@/app/page";
+
 function LandingPage() {
+  const { navigateToLogin } = useContext(AuthContext);
+  
   return (
     <div className="parentbox rounded-b-lg bg-gradient-to-br from-[rgba(217,217,217,0)] to-[#DAFFEF] h-[calc(100vh-2.5rem)] mb-10 overflow-hidden">
       {/* Navbar */}
@@ -22,7 +26,8 @@ function LandingPage() {
 
           <button
             className="flex items-center gap-x-4 rounded-lg bg-gradient-to-r from-[#0C7489] to-[#75DDDD] text-[#FCFFFD] text-xl lg:text-2xl px-5 lg:px-7 h-12 lg:h-16 w-fit hover:bg-[#0f3d46] transition duration-300 font-medium"
-            type="button"/*  */
+            type="button"
+            onClick={navigateToLogin}
           >
             Get Started
             <GoArrowRight />

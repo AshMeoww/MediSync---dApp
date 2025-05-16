@@ -27,9 +27,9 @@ export default function LoginPage() {
     try {
       // Route to appropriate dashboard based on activeUserTab
       if (activeUserTab === 'doctor') {
-        await router.push('/Doctor'); // Updated path
+        router.push('/?userType=doctor');
       } else {
-        await router.push('/Patient'); // Updated path
+        router.push('/?userType=patient');
       }
     } catch (error) {
       console.error('Navigation error:', error);
@@ -42,9 +42,9 @@ export default function LoginPage() {
     try {
       // Route to appropriate dashboard based on activeUserTab
       if (activeUserTab === 'doctor') {
-        await router.push('/Doctor'); // Updated path
+        router.push('/?userType=doctor');
       } else {
-        await router.push('/Patient'); // Updated path
+        router.push('/?userType=patient');
       }
     } catch (error) {
       console.error('Navigation error:', error);
@@ -227,9 +227,9 @@ export default function LoginPage() {
                   For demonstration purposes:
                 </p>
                 <button
-                  className="hover: flex items-center justify-center mx-auto rounded-full bg-[#13505b] text-[#FCFFFD] text-sm px-7 h-9 hover:bg-[#0f3d46] transition duration-300 font-medium"
+                  className="flex items-center justify-center mx-auto rounded-full bg-[#13505b] text-[#FCFFFD] text-sm px-7 h-9 hover:bg-[#0f3d46] transition duration-300 font-medium"
                   type="button"
-                  onClick={()=>{}}
+                  onClick={handleSkipVerification}
                 >
                   Skip Verification &amp; Connect Your Wallet Directly
                 </button>

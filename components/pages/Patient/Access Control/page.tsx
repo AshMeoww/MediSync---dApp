@@ -13,17 +13,24 @@ import { WalletComponent } from "../../Authentication/Wallet/connect";
 function AccessControl() {
   const [activeTab, setActiveTab] = useState<'pending' | 'approved' | 'denied'>('pending');
   const [pendingCount, setPendingCount] = useState(0);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
-  // Update pending count when component mounts
+  // Update pending count when component mounts or when refreshTrigger changes
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const pendingRequests = JSON.parse(localStorage.getItem('pendingRequests') || '[]');
       setPendingCount(pendingRequests.length);
     }
-  }, []);
+  }, [refreshTrigger]);
+
+  // Function to refresh the counts
+  const refreshCounts = () => {
+    setRefreshTrigger(prev => prev + 1);
+  };
 
   const handleTabChange = (tab: 'pending' | 'approved' | 'denied') => {
     setActiveTab(tab);
+    refreshCounts();
   };
 
   return (
@@ -86,9 +93,24 @@ function AccessControl() {
         </div>
 
         <div className="p-4 shadow-lg">
-          {activeTab === 'pending' && <PendingModal isPendingVisible={true} PendingModalbtn={() => {}} />}
-          {activeTab === 'approved' && <ApprovedModal isVisible={true} ApprovedModalbtn={() => {}} />}
-          {activeTab === 'denied' && <DeniedModal isVisible={true} DeniedModalbtn={() => {}} />}
+          {activeTab === 'pending' && (
+            <PendingModal 
+              isPendingVisible={true} 
+              PendingModalbtn={() => refreshCounts()} 
+            />
+          )}
+          {activeTab === 'approved' && (
+            <ApprovedModal 
+              isVisible={true} 
+              ApprovedModalbtn={() => refreshCounts()} 
+            />
+          )}
+          {activeTab === 'denied' && (
+            <DeniedModal 
+              isVisible={true} 
+              DeniedModalbtn={() => refreshCounts()} 
+            />
+          )}
         </div>
       </div>
     </div>
