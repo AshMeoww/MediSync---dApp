@@ -2,8 +2,11 @@ import React from "react";
 import Image from "next/image";
 import NavigationBar from "@/components/ui/Navigation Bar/navbar";
 import { useState } from "react";
+import { useRouter } from 'next/navigation';
 
-export default function Home() {
+
+export default function LoginPage() {
+  const router = useRouter();
   const [activeUserTab, setActiveUserTab] = useState("patient"); // 'patient' or 'doctor'
   const [activeFormTab, setActiveFormTab] = useState("login"); // 'login' or 'signup'
   const [philsys, setPhilsys] = useState("123456789123");
@@ -18,13 +21,35 @@ export default function Home() {
     setActiveFormTab(tab);
   };
 
-  const handleSubmit = (e: { preventDefault: () => void }) => {
+  // Add error handling for navigation
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    alert(
-      `Login submitted\nPhilSys Number: ${philsys}\nPassword: ${"*".repeat(
-        password.length
-      )}\nRemember me: ${remember}`
-    );
+    try {
+      // Route to appropriate dashboard based on activeUserTab
+      if (activeUserTab === 'doctor') {
+        await router.push('/Doctor'); // Updated path
+      } else {
+        await router.push('/Patient'); // Updated path
+      }
+    } catch (error) {
+      console.error('Navigation error:', error);
+      // Handle error appropriately
+    }
+  };
+
+  // Add error handling for skip verification
+  const handleSkipVerification = async () => {
+    try {
+      // Route to appropriate dashboard based on activeUserTab
+      if (activeUserTab === 'doctor') {
+        await router.push('/Doctor'); // Updated path
+      } else {
+        await router.push('/Patient'); // Updated path
+      }
+    } catch (error) {
+      console.error('Navigation error:', error);
+      // Handle error appropriately
+    }
   };
 
   return (
@@ -33,7 +58,6 @@ export default function Home() {
       <section className="bg-[#f9f7f8] min-h-screen flex items-center justify-center p-6">
         <div className="relative max-w-3xl w-full bg-white rounded-xl shadow-[0_0_20px_rgba(0,0,0,0.05)] p-10">
           <div className="absolute top-20 left-0 flex flex-col space-y-6">
-            {/* pa add na lang ng icons */}
             <button
               aria-label="Patient tab"
               onClick={() => handleUserTabClick("patient")}
@@ -58,7 +82,6 @@ export default function Home() {
                 Patient
               </span>
             </button>
-            {/* add icon */}
             <button
               aria-label="Doctor tab"
               onClick={() => handleUserTabClick("doctor")}
@@ -200,20 +223,19 @@ export default function Home() {
                   Forgot password?
                 </p>
 
-                {/* should direct to dashboard, patient or doctor, fix */}
                 <p className="flex items-center justify-center text-left text-lg text-gray-600 mb-2">
                   For demonstration purposes:
                 </p>
                 <button
-                  className="flex items-center justify-center mx-auto rounded-full bg-[#13505b] text-[#FCFFFD] text-sm px-7 h-9 hover:bg-[#0f3d46] transition duration-300 font-medium"
+                  className="hover: flex items-center justify-center mx-auto rounded-full bg-[#13505b] text-[#FCFFFD] text-sm px-7 h-9 hover:bg-[#0f3d46] transition duration-300 font-medium"
                   type="button"
+                  onClick={()=>{}}
                 >
                   Skip Verification &amp; Connect Your Wallet Directly
                 </button>
               </form>
             ) : (
               <div className="text-center text-[#0b7a8a] font-semibold">
-                {/* ok na to*/}
                 Signup form coming soon!
               </div>
             )}

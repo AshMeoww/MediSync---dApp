@@ -12,6 +12,15 @@ import { WalletComponent } from "../../Authentication/Wallet/connect";
 
 function AccessControl() {
   const [activeTab, setActiveTab] = useState<'pending' | 'approved' | 'denied'>('pending');
+  const [pendingCount, setPendingCount] = useState(0);
+
+  // Update pending count when component mounts
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const pendingRequests = JSON.parse(localStorage.getItem('pendingRequests') || '[]');
+      setPendingCount(pendingRequests.length);
+    }
+  }, []);
 
   const handleTabChange = (tab: 'pending' | 'approved' | 'denied') => {
     setActiveTab(tab);
@@ -33,7 +42,7 @@ function AccessControl() {
         </div>
         <div className="flex">
           <button
-            className="flex items-center gap-x-4 rounded-lg bg-[#13505B] text-[#FCFFFD] text-lg lg:text-2xl px-5 lg:px-7 h-12 lg:h-16 w-fit hover:bg-[#0f3d46] transition duration-300 font-medium"
+            className="flex items-center gap-x-2 rounded-lg bg-[#13505B] text-[#FCFFFD] text-base lg:text-lg px-4 lg:px-5 h-10 lg:h-12 w-fit hover:bg-[#0f3d46] transition duration-300 font-medium"
             type="button"
           >
             <TbUsersPlus />
@@ -52,7 +61,7 @@ function AccessControl() {
                 : 'text-gray-500 hover:text-[#13505B] hover:border-b-2 hover:border-gray-300'
             }`}
           >
-            Pending Requests
+            Pending Requests {pendingCount > 0 && <span className="ml-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs">{pendingCount}</span>}
           </h1>
           <h1
             onClick={() => handleTabChange('approved')}

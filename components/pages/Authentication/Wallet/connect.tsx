@@ -8,13 +8,15 @@ import {
 import { Address, Avatar, Name, Identity } from "@coinbase/onchainkit/identity";
 import { color } from "@coinbase/onchainkit/theme";
 
-
 export function WalletComponent() {
   return (
     // omitted for brevity
 
     <Wallet>
-      <ConnectWallet className="rounded-full bg-[#13505b] text-[#FCFFFD] text-sm px-7 h-9 hover:bg-[#0f3d46] transition duration-300 font-medium" disconnectedLabel="Connect Wallet">
+      <ConnectWallet
+        className="rounded-full bg-[#13505b] text-[#FCFFFD] text-sm px-7 h-9 hover:bg-[#0f3d46] transition duration-300 font-medium"
+        disconnectedLabel="Connect Wallet"
+      >
         <Avatar className="h-6 w-6" />
         <Name className="text-white" />
       </ConnectWallet>

@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaBell } from "react-icons/fa";
 import { WalletComponent } from "../../Authentication/Wallet/connect";
 import {
   FaChevronDown,
   FaChevronUp,
   FaFilePdf,
+  FaFileImage,
+  FaFileAlt,
   FaDownload,
   FaEye,
   FaSearch
 } from "react-icons/fa";
 
-// for demo only
-// to follow api routes
-const records = [
+// Demo records
+const demoRecords = [
   {
     title: "Hypertension",
     doctor: "Dr. Ian Vergara",
@@ -47,10 +48,34 @@ const records = [
   }
 ];
 
+// Interface for medical records
+interface MedicalRecord {
+  id: string;
+  patientName: string;
+  recordType: string;
+  fileName: string;
+  uploadDate: string;
+  fileSize: string;
+  fileType: string;
+  doctor?: string;
+  title?: string;
+  location?: string;
+}
+
 function MedicalRecords() {
   const [openIndexes, setOpenIndexes] = useState([0]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("All");
+  const [records, setRecords] = useState(demoRecords);
+  const [uploadedRecords, setUploadedRecords] = useState<MedicalRecord[]>([]);
+
+  // Load uploaded records from localStorage
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedRecords = JSON.parse(localStorage.getItem('medicalRecords') || '[]');
+      setUploadedRecords(storedRecords);
+    }
+  }, []);
 
   const toggleIndex = (index: number) => {
     setOpenIndexes((prev) =>
@@ -58,6 +83,7 @@ function MedicalRecords() {
     );
   };
 
+  // Filter records based on search term and filter type
   const filteredRecords = records.filter((r) => {
     const matchesSearch =
       r.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -67,6 +93,18 @@ function MedicalRecords() {
     const matchesFilter = filterType === "All" || r.type === filterType;
     return matchesSearch && matchesFilter;
   });
+
+  // Get icon based on file type
+  const getFileIcon = (fileType: string) => {
+    switch(fileType) {
+      case 'pdf':
+        return <FaFilePdf className="text-red-500" />;
+      case 'image':
+        return <FaFileImage className="text-blue-500" />;
+      default:
+        return <FaFileAlt className="text-gray-500" />;
+    }
+  };
 
   return (
     <div className="ml- h-full flex flex-col p-6 md:p-10">
@@ -99,13 +137,53 @@ function MedicalRecords() {
           >
             <option value="All">All Types</option>
             <option value="Clinical Diagnosis">Clinical Diagnosis</option>
+            <option value="Lab Results">Lab Results</option>
+            <option value="X-Ray">X-Ray</option>
+            <option value="Prescription">Prescription</option>
             <option value="Imaging">Imaging</option>
           </select>
         </div>
       </div>
 
-      {/* Records list */}
+      {/* Uploaded Records */}
+      {uploadedRecords.length > 0 && (
+        <div className="mt-8">
+          <h2 className="text-xl font-semibold text-[#13505B] mb-4">Recently Uploaded Records</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {uploadedRecords.map((record, index) => (
+              <div key={`uploaded-${index}`} className="border rounded-lg shadow-sm p-4 bg-white transition-shadow hover:shadow-md">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center">
+                    {getFileIcon(record.fileType)}
+                    <div className="ml-3">
+                      <h3 className="font-medium">{record.fileName}</h3>
+                      <p className="text-sm text-gray-500">
+                        {record.recordType} • {record.uploadDate}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex space-x-2">
+                    <button className="text-sm px-2 py-1 border rounded">
+                      <FaDownload className="inline mr-1" /> Download
+                    </button>
+                    <button className="text-sm px-2 py-1 border rounded bg-[#13505B] text-white">
+                      <FaEye className="inline mr-1" /> View
+                    </button>
+                  </div>
+                </div>
+                <div className="mt-2 text-sm text-gray-600">
+                  <p>Uploaded by: {record.doctor || "Your Doctor"}</p>
+                  <p>Size: {record.fileSize}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Original Records list */}
       <section className="flex flex-col gap-6 max-w-4xl mt-10">
+        <h2 className="text-xl font-semibold text-[#13505B]">Medical History</h2>
         {filteredRecords.map((record, index) => (
           <div
             key={index}
@@ -183,4 +261,3 @@ function MedicalRecords() {
 }
 
 export default MedicalRecords;
-
