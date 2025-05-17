@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 import LoginPage from "@/components/pages/Authentication/page";
 import DoctorDashboard from "@/components/pages/Doctor/page";
 import PatientDashboard from "@/components/pages/Patient/page";
@@ -7,9 +7,7 @@ import LandingPage from "@/components/pages/Landing Page/page";
 import { useRouter, useSearchParams } from 'next/navigation';
 
 // Create a context to handle logout
-import { createContext, useContext } from 'react';
-
-export const AuthContext = createContext({
+const AuthContext = createContext({
   logout: () => {},
   navigateToLogin: () => {}
 });
@@ -56,3 +54,6 @@ export default function Home() {
     </AuthContext.Provider>
   );
 }
+
+// Export the context for other components to use
+export { AuthContext };
