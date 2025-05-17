@@ -1,11 +1,11 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { GoHomeFill } from "react-icons/go";
 import { IoDocumentText, IoPeopleSharp } from "react-icons/io5";
 import { FaCalendarAlt } from "react-icons/fa";
-import { RiBookletFill } from "react-icons/ri";
 import { FiLogOut } from "react-icons/fi";
 import { useRouter } from 'next/navigation';
+import Link from "next/link";
 import Image from 'next/image';
 import { AuthContext } from '@/app/page';
 import { useContext } from 'react';
@@ -21,25 +21,13 @@ interface SideNavProps {
   onTabChange?: (tab: string) => void;
 }
 
-function SideNav({ onTabChange }: SideNavProps) {
+function SideNav() {
   const router = useRouter();
   const { logout } = useContext(AuthContext);
-  const [currentSection, setCurrentSection] = useState("dashboard");
+  const [currentSection, setCurrentSection] = useState("");
 
-  const clickToSection = (sectionId: string) => {
-    setCurrentSection(sectionId);
-    
-    // Call the onTabChange prop if provided
-    if (onTabChange) {
-      if (sectionId === "medicalrecord") {
-        onTabChange("records");
-      } else {
-        onTabChange(sectionId);
-      }
-    }
-    
-    // Scroll to section if it exists
-    const section = document.getElementById(sectionId);
+  const clickToSection = (SectionID: any) => {
+    const section = document.getElementById(SectionID);
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
     }
@@ -48,10 +36,38 @@ function SideNav({ onTabChange }: SideNavProps) {
   const links: LinkItem[] = [
     { name: "Dashboard", id: "dashboard", icon: <GoHomeFill className="text-[#13505B]" /> },
     { name: "Medical Records", id: "medicalrecord", icon: <IoDocumentText className="text-[#13505B]" /> },
-    { name: "Access Control", id: "accesscontrol", icon: <IoPeopleSharp className="text-[#13505B]" /> },
+    { name: "Patients", id: "patients", icon: <IoPeopleSharp className="text-[#13505B]" /> },
     { name: "Appointments", id: "appointments", icon: <FaCalendarAlt className="text-[#13505B]" /> },
-    { name: "Logs", id: "logs", icon: <RiBookletFill className="text-[#13505B]" /> },
   ];
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setCurrentSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: [0.1, 0.3, 0.9] }
+    );
+
+    links.forEach((link) => {
+      const section = document.getElementById(link.id);
+      if (section) {
+        observer.observe(section);
+      }
+    });
+
+    return () => {
+      links.forEach((link) => {
+        const section = document.getElementById(link.id);
+        if (section) {
+          observer.unobserve(section);
+        }
+      });
+    };
+  }, [links]);
 
   return (
     <div className="absolute left-0 box-border flex h-screen w-fit shadow-lg">
@@ -75,13 +91,18 @@ function SideNav({ onTabChange }: SideNavProps) {
                     currentSection === link.id ? "bg-[#b1d0d7]" : ""
                   }`}
                 >
-                  <button
-                    onClick={() => clickToSection(link.id)}
-                    className="p-2 inline-flex items-center space-x-2 w-full text-left"
+                  <Link
+                    key={index}
+                    href={`#${link.id}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      clickToSection(link.id);
+                    }}
+                    className="p-2 inline-flex items-center space-x-2"
                   >
                     {link.icon}
                     <span className='text-[#13505B]'>{link.name}</span>
-                  </button>
+                  </Link>
                 </li>
               ))}
           </ul>

@@ -3,22 +3,40 @@ import { CiLocationOn } from "react-icons/ci";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { FaRegCircleXmark } from "react-icons/fa6";
 
-export function PatientPR() {
+interface PendingRequestProps {
+  doctor?: {
+    name: string;
+    hospital: string;
+    requestDate: string;
+    reason: string;
+  };
+  onApprove: () => void;
+  onDeny: () => void;
+}
+
+export function PatientPR({ 
+  doctor = {
+    name: "Dr. Kenneth C. Hular",
+    hospital: "M.V.S Medical Center",
+    requestDate: "2025-03-03",
+    reason: "Check antibiotic prescriptions and intake for the past 5 years"
+  },
+  onApprove,
+  onDeny
+}: PendingRequestProps) {
   return (
-    <div className="border border-[#b4d1d8] flex flex-row p-10 bg-[#cedfe5] rounded-lg justify-around">
+    <div className="border border-[#b4d1d8] flex flex-row p-10 bg-[#cedfe5] rounded-lg justify-around mb-4">
       <div className="flex flex-col">
-        {/* Convert to props later */}
         <h1 className="font-bold text-[#13505b] text-xl">
-          Dr. Kenneth C. Hular
+          {doctor.name}
         </h1>
         <div className="flex items-center text-gray-500 text-sm">
           <CiLocationOn />
-          <p>M.V.S Medical Center</p>
+          <p>{doctor.hospital}</p>
         </div>
 
-        {/* Convert to props */}
         <p className="text-[#13505BB2] text-sm mt-5 font-medium">
-          Requested on 2025-03-03
+          Requested on {doctor.requestDate}
         </p>
       </div>
 
@@ -32,14 +50,17 @@ export function PatientPR() {
         <p className="font-semibold text-sm text-[#4D4D4D] mt-5">Reason: </p>
 
         <p className="w-2/3 text-sm">
-          Check antibiotic prescriptions and intake for the past 5 years
+          {doctor.reason}
         </p>
       </div>
 
       <div className="flex flex-row items-center gap-4">
-        <FaRegCircleXmark className="w-10 h-10 text-[#13505b]" />
-        <FaRegCircleCheck className="w-10 h-10 text-[#13505b]" />
-        
+        <button onClick={onDeny} className="hover:opacity-80">
+          <FaRegCircleXmark className="w-10 h-10 text-[#13505b]" />
+        </button>
+        <button onClick={onApprove} className="hover:opacity-80">
+          <FaRegCircleCheck className="w-10 h-10 text-[#13505b]" />
+        </button>
       </div>
     </div>
   );
