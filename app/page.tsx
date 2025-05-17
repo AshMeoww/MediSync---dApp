@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import LoginPage from "@/components/pages/Authentication/page";
 import DoctorDashboard from "@/components/pages/Doctor/page";
 import PatientDashboard from "@/components/pages/Patient/page";
@@ -7,7 +7,7 @@ import LandingPage from "@/components/pages/Landing Page/page";
 import { useRouter, useSearchParams } from 'next/navigation';
 import { AuthContext } from './auth-context';
 
-export default function Home() {
+function HomeContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [currentView, setCurrentView] = useState("landing");
@@ -47,5 +47,13 @@ export default function Home() {
         {currentView === "patient" && <PatientDashboard />}
       </main>
     </AuthContext.Provider>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div className="w-full h-screen flex items-center justify-center">Loading...</div>}>
+      <HomeContent />
+    </Suspense>
   );
 }
