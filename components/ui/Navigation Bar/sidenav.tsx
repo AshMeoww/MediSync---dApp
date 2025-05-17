@@ -7,7 +7,7 @@ import { RiBookletFill } from "react-icons/ri";
 import { FiLogOut } from "react-icons/fi";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { AuthContext } from '@/app/page';
+import { AuthContext } from '@/app/auth-context';
 import { useContext } from 'react';
 
 type LinkItem = {

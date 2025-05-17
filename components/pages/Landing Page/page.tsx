@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Image from "next/image";
 import { GoArrowRight } from "react-icons/go";
 import NavigationBar from "@/components/ui/Navigation Bar/navbar";
-import { AuthContext } from "@/app/page";
+import { AuthContext } from "@/app/auth-context";
 
 function LandingPage() {
   const { navigateToLogin } = useContext(AuthContext);
