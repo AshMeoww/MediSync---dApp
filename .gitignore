@@ -39,3 +39,23 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# sensitive or unnecessary files
+.env
+.env.local
+blockchain/.env
+
+# auto-generated files
+node_modules/
+.blockchain/cache/
+.blockchain/artifacts/
+.frontend/.next/
+frontend/.next/
+
+# ───────── Blockchain ─────────
+blockchain/artifacts/
+blockchain/cache/
+blockchain/build-info/
+
+# Env files
+blockchain/.env
